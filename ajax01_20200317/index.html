@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1></h1>
+    <button id="fetch">点击读取文本文件内容</button>
+
+
+    <script>
+        var oH1 = document.querySelector("h1");
+        var oBtn = document.querySelector("#fetch");
+
+        function ajaxGet(url,callback){
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    var newJSON = JSON.parse(xhr.responseText);
+                    callback(newJSON);
+                }
+            }
+
+            // xhr.open("get","api.txt",true);
+            // xhr.open("get","https://interface.meiriyiwen.com/article/random?dev=1",true);
+            xhr.open("get",url,true);
+
+            xhr.send(null);
+        }
+
+        ajaxGet("https://interface.meiriyiwen.com/article/random?dev=1",function(data){
+            console.log(data);
+        });
+
+
+        console.log(encodeURIComponent("哈哈哈"));
+        console.log(encodeURIComponent("abcdef"));
+        console.log(encodeURIComponent("12345"));
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script src="myajax.js"></script>
+    <script>
+        _.get("https://interface.meiriyiwen.com/article/day", {
+                "dev": 1,
+                "date": 20200317
+            },
+            function (data, error) {
+                console.log(data);
+            })
+    </script>
+</body>
+
+</html>

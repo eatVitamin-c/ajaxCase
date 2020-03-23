@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日一文</title>
+    <script src="./myajax.js"></script>
+    <script src="./jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <button id="prev">前一天</button>
+    <button id="next">后一天</button>
+
+
+    <script>
+        var compareCurrDate = "";
+        var nd = new Date();
+        compareCurrDate = "" + nd.getFullYear() + add0(nd.getMonth() + 1) + add0(nd.getDate());
+        console.log(compareCurrDate);
+
+        var currDate = 20200323;
+        var prevDate = currDate - 1,
+            nextDate = currDate + 1;
+        var prevBtn = $("#prev");
+        var nextBtn = $("#next");
+
+        prevBtn.click(function () {
+            requestArticleData(prevDate);
+        })
+        nextBtn.click(function () {
+            // if(parseInt(nextDate) != parseInt(compareCurrDate)+1){}
+            if(parseInt(nextDate) <= parseInt(compareCurrDate)){
+                requestArticleData(nextDate);
+            }
+        })
+
+        function requestArticleData(dt) {
+            _.get("https://interface.meiriyiwen.com/article/day", {
+                dev: 1,
+                date: dt
+            }, function (d, e) {
+                console.log(d);
+                createArticle(d.data.title, d.data.date.curr, d.data.author, d.data.content, d.data.date.prev, d
+                    .data.date.next);
+            })
+        }
+
+        function createArticle(title, date, author, content, prev, next) {
+            // $("#artiContainer")[0]
+            if (document.querySelector("#artiContainer")) {
+                $("#artiContainer").remove();
+            }
+
+            var artiContainer = $("<div id='artiContainer'></div>");
+            var artiTitle = $("<h2></h2>");
+            artiTitle.html(title);
+            var artiDate = $("<div></div>");
+            artiDate.html(date);
+            var artAuthor = $("<h6></h6>");
+            artAuthor.html(author);
+            var artiContent = $("<div></div>");
+            artiContent.html(content);
+            artiContainer.append(artiTitle).append(artiDate).append(artAuthor).append(artiContent);
+            $(document.body).append(artiContainer);
+
+
+            currDate = date;
+            prevDate = prev;
+            nextDate = next;
+            console.log(prevDate,currDate,nextDate);
+        }
+
+        function add0(n) {
+            return n < 10 ? "0" + n : n;
+        }
+    </script>
+</body>
+
+</html>
