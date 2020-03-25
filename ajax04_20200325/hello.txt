@@ -1,0 +1,4 @@
+fun({
+    name: "haha",
+    age: 18
+});

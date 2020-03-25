@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="myajax.js"></script>
+</head>
+
+<body>
+
+
+    <script>
+        // function fun(data) {
+        //     console.log(data);
+        // }
+
+        // _.get("http://v.juhe.cn/joke/content/list.php",{
+        //     sort: "asc",
+        //     page: 1,
+        //     pagesize: 15,
+        //     time: "1418816972",
+        //     key: "994a11e30671d5e7415b47807dceb7f7"
+        // },function(data,error){
+        //     console.log(data);
+        // })
+
+        _.jsonp("http://v.juhe.cn/calendar/year", {
+            year: "2020",
+            key: "a5dd71434d853a990eb39e069e65e300"
+        },"h123", function (data, error) {
+            console.log(data);
+        })
+
+
+    </script>
+    <!-- <script type="text/javascript" src="./hello.txt"></script> -->
+    <!-- <script type="text/javascript"
+        src="http://v.juhe.cn/joke/content/list.php?sort=asc&time=1418816972&key=994a11e30671d5e7415b47807dceb7f7&callbackname=fun">
+    </script> -->
+</body>
+
+</html>
