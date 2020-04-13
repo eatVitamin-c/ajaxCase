@@ -7,7 +7,7 @@ window._ = {
             httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
         }
 
-
+        
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState == 4) {
                 if (httpRequest.status >= 200 && httpRequest.status < 300 || httpRequest.status == 304) {

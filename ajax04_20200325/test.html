@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="text/javascript" src="myajax.js"></script>
+    <script src="jquery-3.4.1.js"></script>
 </head>
 
 <body>
@@ -26,14 +27,91 @@
         //     console.log(data);
         // })
 
-        _.jsonp("http://v.juhe.cn/calendar/year", {
-            year: "2020",
-            key: "a5dd71434d853a990eb39e069e65e300"
+
+        // 获取新闻分类
+        _.jsonp("https://api.jisuapi.com/news/channel", {
+            appkey: "d99007fed843c8d9"
         },"h123", function (data, error) {
-            console.log(data);
+            // console.log(data);
+            // 存放分类词的数组
+            var arrCate = [];
+            // 创建ul
+            var cate = $("<ul id='cate'></ul>");
+            cate.css({
+                overflow: "hidden",
+                listStyle: "none"
+            });
+            // 创建首页li，追加到ul中
+            $("<li class='index'>首页</li>").css({
+                margin: "20px",
+                float: "left"
+            }).appendTo(cate);
+            // 遍历数据中得到的分类，创建li，追加到ul中
+            $.each(data.result,function(idx,item){
+                $("<li class='cate-item'></li>").html(item).css({
+                    margin: "20px",
+                    float: "left"
+                }).appendTo(cate);
+                arrCate.push(item);
+            });
+            // ul追加到body
+            $(document.body).append(cate);
+            // 首页添加点击事件
+            // $(".index").click(function(){
+                // 需要清掉页面中显示的其他分类的新闻，这里省略没写
+                // 发送17次请求拿到，每类的10条新闻，组装页面
+                $.each(arrCate,function(it,id){
+                    // console.log(id);
+                    _.jsonp("https://api.jisuapi.com/news/get",{
+                        appkey: "d99007fed843c8d9",
+                        num: 10,
+                        channel: id
+                    },"newsIndex",function(data,err){
+                        var speNews = data.result.list;
+                        var main = $("<main></main>");
+                        main.css({
+                            margin: "20px auto",
+                            backgroundColor: "gray"
+                        });
+                        $.each(speNews,function(i,c){
+                            $("<div class='newsTitle'></div>").html(c.title).css({
+                                margin: "10px"
+                            }).appendTo(main);
+                        })
+                        $(document.body).append(main);
+                    })
+                })
+            // });
+            // 点击除首页以外的分类
+            $(".cate-item").click(function(e){
+                // 需要清掉页面中显示的其他分类的新闻，这里省略没写
+                // console.log(e.currentTarget.innerHTML);
+                _.jsonp("https://api.jisuapi.com/news/get",{
+                    appkey: "d99007fed843c8d9",
+                    num: 40,
+                    channel: e.currentTarget.innerHTML
+                },"newsCate",function(data,err){
+                    console.log(data);
+                })
+            })
         })
 
 
+        // $.ajax({
+        //     method: "GET",
+        //     url: "http://apis.juhe.cn/xzpd/query",
+        //     data: {
+        //         men: "狮子",
+        //         women: "白羊",
+        //         key: "2a42b7f7066be76535988504e6d161df"
+        //     },
+        //     contentType: "application/json",
+        //     dataType: "jsonp",
+        //     jsonpCallback: "haha123",
+        //     success: function(data){
+        //         console.log(data);
+        //     }
+        // })
     </script>
     <!-- <script type="text/javascript" src="./hello.txt"></script> -->
     <!-- <script type="text/javascript"
