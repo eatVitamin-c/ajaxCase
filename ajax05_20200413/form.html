@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <form action="#" id="self">
+        <input type="text" name="username" value="hello"><br>
+        <input type="password" name="password" value="123456"><br>
+        <input type="radio" name="gender" value="男"> 男
+        <input type="radio" name="gender" value="女"> 女<br>
+        <input type="checkbox" name="hobby" value="健身"> 健身
+        <input type="checkbox" name="hobby" value="旅游"> 旅游
+        <input type="checkbox" name="hobby" value="打游戏"> 打游戏
+        <input type="checkbox" name="hobby" value="写代码"> 写代码<br>
+        <select name="hometown">
+            <option value="北京">北京</option>
+            <option value="河北">北京</option>
+            <option value="河南">河南</option>
+            <option value="辽宁">辽宁</option>
+            <option value="山西">山西</option>
+        </select><br>
+        <textarea name="info" cols="30" rows="10"></textarea><br>
+        <input type="submit" value="提交" id="submit-btn">
+    </form>
+
+
+    <script>
+        
+        $("#submit-btn").click(function(e){
+            e.preventDefault();
+            // 直接调用serialize()方法得到的结果是表单中数据按照xxx=yyy&aaa=bbb&mn=cd这种格式的字符串
+            // 相当于综合了我们自己封装的formSerializeToJson和JSONToUrl两个方法
+            console.log($("#self").serialize());
+            // 直接调用serializeArray()方法得到的是一个数组，数组中的每一项都是一个对象，每个对象都包含一个name属性和一个value属性，name和value属性的值就是从表单收集的数据
+            console.log($("#self").serializeArray());
+        })
+        
+    </script>
+</body>
+</html>

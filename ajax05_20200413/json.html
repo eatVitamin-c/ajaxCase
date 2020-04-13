@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+
+<body>
+
+
+    <script>
+        // 以下写法是不能跨域的
+        // $.getJSON("https://api.jisuapi.com/caipiao/class",{
+        //     appkey: "d99007fed843c8d9",
+        //     callback: "haha"
+        // },function(res){
+        //     console.log(res);
+        // })
+
+
+        // $.getJSON("./hahaha.json", function (res) {
+        //     console.log(res);
+        // })
+
+        // $.getScript("./es6.js");
+
+
+        // $.ajax({
+        //     url: "https://interface.meiriyiwen.com/article/day",
+        //     type: "GET",
+        //     async: true,
+        //     data: {
+        //         dev: 1,
+        //         date: "20200413"
+        //     },
+        //     dataType: "json",
+        //     success: function(data,ts,xhr){
+        //         console.log(data);
+        //     },
+        //     complete: function(xhr,ts){
+        //         console.log(xhr,ts);
+        //     },
+        //     error: function(xhr,ts,err){
+        //         console.log(xhr,ts,err);
+        //     }
+        // })
+
+        // jquery提供的ajax方法实现跨域的条件：
+        // 1. 接口必须支持返回jsonp格式数据
+        // 2. 配置对象里必须有dataType:"jsonp",jsonpCsllback可有可不有，url(必须),type,data，返回的数据在success回调函数里接收
+        $.ajax({
+            url: "https://api.jisuapi.com/caipiao/class",
+            type: "GET",
+            data: {
+                appkey: "d99007fed843c8d9"
+            },
+            dataType: "jsonp",
+            jsonpCallback: "hahaha",
+            success: function (data, ts, xhr) {
+                console.log(data);
+            },
+            error: function (xhr, ts, err) {
+                console.log(xhr, ts, err);
+            }
+        })
+    </script>
+</body>
+
+</html>

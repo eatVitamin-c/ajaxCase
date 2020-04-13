@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    
+    <div id="hello"></div>
+    <div id="world"></div>
+
+    <script>
+        $("#hello").load("test.html",function(res){
+            $("#world").html(res);
+            console.log(res);
+        });
+
+
+        // 每日一文接口，后端支持跨域
+        $.get("https://interface.meiriyiwen.com/article/day",{
+            dev: 1,
+            date: "20200413"
+        },function(res){
+            console.log(res);
+        },"json");
+
+
+        // 使用get方法调用接口，必须后端允许跨域，否则不能使用get方法，要用jsonp或者代理等手段才能调用接口获取数据
+        // $.get("https://api.jisuapi.com/caipiao/query",{
+        //     caipiaoid: 11,
+        //     appkey: "d99007fed843c8d9"
+        // },function(res){
+        //     console.log(res);
+        // })
+
+
+    </script>
+</body>
+</html>
